@@ -1,0 +1,6 @@
+[Unit]
+Description=Generate the daily tech/security news digest (HN + GitHub Trending)
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/.local/bin/news_digest.py --no-open

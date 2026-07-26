@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Daily News Digest
+Comment=Generates and opens the HN + GitHub Trending digest at login
+Exec=sh -c '/usr/bin/python3 "$HOME/.local/bin/news_digest.py"'
+X-GNOME-Autostart-enabled=true
+NoDisplay=true
+Terminal=false

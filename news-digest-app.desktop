@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=News Digest
+Comment=Hacker News + GitHub Trending digest'ini üretip tarayıcıda aç
+Exec=sh -c '/usr/bin/python3 "$HOME/.local/bin/news_digest.py"'
+Icon=applications-internet
+Categories=Network;News;
+Terminal=false
