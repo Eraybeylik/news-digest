@@ -1,9 +1,18 @@
 # News Digest — Kurulum (Arch Linux, Hyprland)
 
-Ne yapıyor: Hacker News top story'leri + GitHub Trending repolarını çekip tek bir
-HTML sayfası üretiyor (koyu tema, okunaklı). Hiç Electron/headless browser yok —
-sadece birkaç HTTP isteği atan ~2 saniyelik bir Python scripti (stdlib only,
-ekstra paket kurmana gerek yok).
+Ne yapıyor: dört bölümlü tek bir HTML sayfası üretiyor (koyu tema, okunaklı):
+1. **Hacker News** — top story'ler
+2. **GitHub Trending** — genel popüler repolar (bugün trend olanlar)
+3. **GitHub — New Security Projects** — `security` topic'li, son 14 günde
+   açılmış, yıldıza göre sıralı repolar (rastgele trend değil, gerçekten yeni
+   siber güvenlik araçları/PoC'ler)
+4. **Latest CVEs (NVD)** — son günlerde yayınlanmış CVE'ler; her biri açığın
+   ne olduğunu ve nasıl istismar edildiğini anlatan açıklama, CVSS skoru/severity
+   ve referans linkiyle geliyor. Üstte de "CVE nedir, CVSS nasıl çalışır"
+   anlatan sabit bir bilgi kutusu var.
+
+Hiç Electron/headless browser yok — sadece birkaç HTTP isteği atan birkaç
+saniyelik bir Python scripti (stdlib only, ekstra paket kurmana gerek yok).
 
 ## Dosyalar
 - `news_digest.py` — asıl script
@@ -64,7 +73,19 @@ bilinçli olarak çeviri yapılmadı, günlük okuma pratiği için. Kırmızı 
 kartlar (security etiketli) siber güvenlikle ilgili başlıkları otomatik
 işaretliyor (CVE, vulnerability, breach, exploit vb. anahtar kelimelere göre).
 
+## Kaynaklar
+- Hacker News: resmi Firebase API (`hacker-news.firebaseio.com`)
+- GitHub Trending: `github.com/trending` sayfası
+- GitHub Security Projects: GitHub Search API (`api.github.com/search/repositories`,
+  `topic:security created:>...`) — API key gerektirmiyor ama GitHub'ın
+  unauthenticated rate limiti dakikada ~10 istek; script sadece 1 istek attığı
+  için sorun olmaz.
+- CVE: NVD API 2.0 (`services.nvd.nist.gov/rest/json/cves/2.0`), resmi ABD
+  hükümeti CVE veritabanı, API key gerektirmiyor.
+
 ## Kaynak kodunu değiştirmek istersen
-- `HN_COUNT` / `GH_COUNT` — kaç haber/repo gösterileceği
-- `SECURITY_KEYWORDS` — hangi kelimelerin "security" etiketi tetikleyeceği
+- `HN_COUNT` / `GH_COUNT` / `SEC_REPO_COUNT` / `CVE_COUNT` — kaç öğe gösterileceği
+- `SEC_REPO_WINDOW_DAYS` — security repoları kaç günlük pencerede arayacağı (varsayılan 14)
+- `CVE_WINDOW_DAYS` — CVE'leri kaç günlük pencerede arayacağı (varsayılan 3)
+- `SECURITY_KEYWORDS` — HN başlıklarında hangi kelimelerin "security" etiketi tetikleyeceği
 - CSS bloğu `render_html()` içinde — renk/tema değişiklikleri için
